@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <meta charset = "UTF-8">
+  <title>TO-DO List (E-Cell)</title>
+  <link href ="https://stackpath.bookstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel ="stylesheet">
+  <style>
+    *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    body{
+      height:100vh;
+      background: turquoise;
+      background:linear-gradient(139deg,turquoise 40%,blue 100%);
+    }
+    .container{
+        position: relative;
+        max-width:800px;
+        padding:10px;
+        margin:0 auto;
+
+    }
+    .addtask{
+        width:100%;
+        display:flex;
+        padding:10px o;
+    }
+    .addtask > input[type = "text"]{
+        width:90%;
+        color:#333;
+        border:none;
+        border-bottom:2px solid #666;
+        background: none;
+        outline:none;
+        padding:10px;
+        font-size: 22px;
+    }
+    .addtask button{
+      margin : 0 10px;  
+      background: #222;
+      color:white;
+      font-size: 22px;
+      text-transform: uppercase;
+      padding:10px;
+      border:none;
+      outline:none;
+      border-radius: 17px;
+      cursor: pointer;
+    }
+    .notcompleted,.completed{
+       margin :5px 0;
+       padding:20px;
+    }
+    h3{
+        font-size:28px;
+        text-transform: uppercase;
+        text-align: center;
+        color:grey;
+    }
+    ol{
+        list-style: none;
+        counter-reset : my-counter;
+    }
+    ol li{
+        width:100%;
+        padding:18px;
+        margin: 5px 0;
+        background: #e96969bb;
+        font-size: 22px;
+        counter-increment:my-counter;
+    }
+    
+    ol.completed li{
+        background: #00ff62;
+    }
+    ol li .tsk::before{
+        content : counter(my-counter);
+        background:#231381;
+        width:2rem;
+        height:2rem;
+        border-radius:50%;
+        display:inline-block;
+        line-height:2rem;
+        text-align:center;
+        color:#fff;
+        margin-right:0.5rem;
+}
+    
+ 
+    li button{
+        float:right;
+        padding:5px;
+        font-size:20px;
+        line-height:28px;
+        outline: none;
+        background: #333;
+        color:#fff;
+    }
+    
+    
+
+
+
+  </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class= "addtask">
+           <input type="text" placeholder= "Add a Task">
+           <button>Add</button> 
+        </div>
+        <ol class="notcompleted">
+            <h3>Not Completed</h3>
+            <li>
+              
+
+            </li>
+
+        </ol>
+        <ol class="completed">
+            <h3>Completed</h3>
+            <li> 
+               
+            
+
+            </li>
+
+        </ol>
+    </div>
+    <script>
+       const input = document.querySelector('input');
+       const btn = document.querySelector('.addtask > button');
+       btn.addEventListener('click',addlist)
+       
+       input.addEventListener('keyup',(e)=>{
+           (e.keyCode === 13 ? addlist(e): null );
+       })
+
+       function addlist(e){
+           const notcompleted = document.querySelector('.notcompleted');
+           const completed = document.querySelector('.completed');
+        
+           const newLi = document.createElement('Li');
+           const Checkbtn = document.createElement('button');
+           const delbtn = document.createElement('button');
+           const addbtn = document.createElement('button');
+           Checkbtn.innerHTML = '<i class = "fa fa-check">Done!</i>';
+           delbtn.innerHTML = '<i class = "fa fa-trash">Delete:(</i>';
+          
+
+
+           if(input.value !==''){
+               newLi.textContent = input.value;
+               input.value = '';
+               notcompleted.appendChild(newLi);
+               newLi.appendChild(Checkbtn);
+               newLi.appendChild(delbtn);
+           }
+           Checkbtn.addEventListener('click',function(){
+             const parent = this.parentNode;
+             parent.remove();
+             completed.appendChild(parent);
+             Checkbtn.style.display= 'none';
+
+           });
+           delbtn.addEventListener('click',function(){
+             const parent = this.parentNode;
+             parent.remove();
+             
+
+           });
+
+           
+       }
+
+
+
+    </script>
+</body>
+
+</html>
